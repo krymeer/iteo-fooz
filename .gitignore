@@ -1,0 +1,30 @@
+# Ignore everything in the root directory
+/*
+
+# Allow the .gitignore and README.md files in the root
+!/.gitignore
+!/README.md
+
+# Allow tracking the wp-content directory
+!/wp-content/
+
+# Ignore everything inside wp-content
+/wp-content/*
+
+# Allow the plugins directory
+!/wp-content/plugins/
+
+# Ignore all individual plugins
+/wp-content/plugins/*
+
+# Exception for your plugin
+!/wp-content/plugins/kro-twentytwentyfive-extender/
+
+# Standard OS/IDE trash and logs
+Thumbs.db
+.DS_Store
+*.log
+node_modules/
+dist/
+.vscode/
+.idea/
