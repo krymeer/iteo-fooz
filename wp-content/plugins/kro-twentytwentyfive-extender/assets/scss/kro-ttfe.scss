@@ -1,0 +1,11 @@
+.home {
+    h1 {
+        &::after {
+            display: inline;
+            content: ' by KRO';
+            font-size: .5em;
+            color: magenta;
+            margin-left: .125em;
+        }
+    }
+}

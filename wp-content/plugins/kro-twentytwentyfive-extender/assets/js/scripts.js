@@ -1,0 +1,1 @@
+window.addEventListener('load', loadEvent => {console.log('%cAdditional script enqueued only for testing purposes!', 'color: white; background-color: green; font-family: serif; padding: 10px;')});
