@@ -16,6 +16,7 @@ class KRO_TwentyTwentyFive_Extender {
     {
         $this->plugin_url = plugin_dir_url( __FILE__ );
         add_action( 'init', [ $this, 'register_post_type' ] );
+        add_action( 'init', [ $this, 'register_taxonomy' ] );
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ] );
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
     }
@@ -30,6 +31,32 @@ class KRO_TwentyTwentyFive_Extender {
         wp_enqueue_script( 'kro-ttfe', "{$this->plugin_url}assets/js/kro-ttfe.min.js", [], 1772712462, [ 'in_footer' => true ] );
         wp_enqueue_script( 'kro-ttfe-additional', "{$this->plugin_url}assets/js/scripts.js", [ 'kro-ttfe' ], 1772713773, [ 'in_footer' => true ] );
     }
+
+    public function register_taxonomy() : void
+    {
+        register_taxonomy( 'book-genre', [ 'book' ], [
+            'hierarchical'      => true,
+            'labels'            => [
+                'name'              => _x( 'Book Genres', 'taxonomy general name', 'kro-ttfe' ),
+                'singular_name'     => _x( 'Book Genre', 'taxonomy singular name', 'kro-ttfe' ),
+                'search_items'      => __( 'Search Genres', 'kro-ttfe' ),
+                'all_items'         => __( 'All Genres', 'kro-ttfe' ),
+                'parent_item'       => __( 'Parent Genre', 'kro-ttfe' ),
+                'parent_item_colon' => __( 'Parent Genre:', 'kro-ttfe' ),
+                'edit_item'         => __( 'Edit Genre', 'kro-ttfe' ),
+                'update_item'       => __( 'Update Genre', 'kro-ttfe' ),
+                'add_new_item'      => __( 'Add New Genre', 'kro-ttfe' ),
+                'new_item_name'     => __( 'New Genre Name', 'kro-ttfe' ),
+                'menu_name'         => __( 'Genres', 'kro-ttfe' ),
+            ],
+            'show_ui'           => true,
+            'show_admin_column' => true,
+            'query_var'         => true,
+            'rewrite'           => [ 'slug' => 'book-genre' ],
+            'show_in_rest'      => true
+        ] );
+    }
+
     public function register_post_type() : void
     {
         register_post_type( 'book', [
