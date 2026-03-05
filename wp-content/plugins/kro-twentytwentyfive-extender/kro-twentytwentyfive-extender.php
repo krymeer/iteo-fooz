@@ -11,9 +11,11 @@ defined( 'ABSPATH' ) || exit;
 class KRO_TwentyTwentyFive_Extender {
     const NAMESPACE  = 'kro-ttfe/v1';
     public static $plugin_url;
+
     public function __construct()
     {
         $this->plugin_url = plugin_dir_url( __FILE__ );
+        add_action( 'init', [ $this, 'register_post_type' ] );
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ] );
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
     }
@@ -27,6 +29,57 @@ class KRO_TwentyTwentyFive_Extender {
     {
         wp_enqueue_script( 'kro-ttfe', "{$this->plugin_url}assets/js/kro-ttfe.min.js", [], 1772712462, [ 'in_footer' => true ] );
         wp_enqueue_script( 'kro-ttfe-additional', "{$this->plugin_url}assets/js/scripts.js", [ 'kro-ttfe' ], 1772713773, [ 'in_footer' => true ] );
+    }
+    public function register_post_type() : void
+    {
+        register_post_type( 'book', [
+            'public'          => true,
+            'query_var'       => false,
+            'hierarchical'    => false,
+            'has_archive'     => 'library',
+            'capability_type' => 'post',
+            'menu_position'   => 10,
+            'menu_icon'       => 'dashicons-book',
+            'show_in_rest'    => true,
+            'rewrite'         => [
+                'slug' => 'library',
+            ],
+            'supports'        => [
+                'revisions',
+                'editor',
+                'title',
+                'author',
+                'thumbnail',
+                'excerpt',
+                'comments'
+            ],
+            'labels'          => [
+                'name'                  => _x( 'Books', 'Post type general name', 'kro-ttfe' ),
+                'singular_name'         => _x( 'Book', 'Post type singular name', 'kro-ttfe' ),
+                'menu_name'             => _x( 'Books', 'Admin Menu text', 'kro-ttfe' ),
+                'name_admin_bar'        => _x( 'Book', 'Add New on Toolbar', 'kro-ttfe' ),
+                'add_new'               => __( 'Add New', 'kro-ttfe' ),
+                'add_new_item'          => __( 'Add New Book', 'kro-ttfe' ),
+                'new_item'              => __( 'New Book', 'kro-ttfe' ),
+                'edit_item'             => __( 'Edit Book', 'kro-ttfe' ),
+                'view_item'             => __( 'View Book', 'kro-ttfe' ),
+                'all_items'             => __( 'All Books', 'kro-ttfe' ),
+                'search_items'          => __( 'Search Books', 'kro-ttfe' ),
+                'parent_item_colon'     => __( 'Parent Books:', 'kro-ttfe' ),
+                'not_found'             => __( 'No books found.', 'kro-ttfe' ),
+                'not_found_in_trash'    => __( 'No books found in Trash.', 'kro-ttfe' ),
+                'featured_image'        => _x( 'Book Cover Image', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'kro-ttfe' ),
+                'set_featured_image'    => _x( 'Set cover image', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'kro-ttfe' ),
+                'remove_featured_image' => _x( 'Remove cover image', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'kro-ttfe' ),
+                'use_featured_image'    => _x( 'Use as cover image', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'kro-ttfe' ),
+                'archives'              => _x( 'Book archives', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'kro-ttfe' ),
+                'insert_into_item'      => _x( 'Insert into book', 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', 'kro-ttfe' ),
+                'uploaded_to_this_item' => _x( 'Uploaded to this book', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', 'kro-ttfe' ),
+                'filter_items_list'     => _x( 'Filter books list', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', 'kro-ttfe' ),
+                'items_list_navigation' => _x( 'Books list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', 'kro-ttfe' ),
+                'items_list'            => _x( 'Books list', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', 'kro-ttfe' ),
+            ]
+        ] );
     }
 }
 
