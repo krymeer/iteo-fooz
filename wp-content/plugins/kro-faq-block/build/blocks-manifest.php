@@ -6,7 +6,7 @@ return array(
 		'apiVersion' => 3,
 		'name' => 'create-block/kro-faq-block',
 		'version' => '1.0.0',
-		'title' => 'KRO FAQ Block',
+		'title' => 'FAQ Accordion',
 		'category' => 'widgets',
 		'icon' => 'editor-help',
 		'description' => 'Example FAQ scaffolded with Create Block tool.',
