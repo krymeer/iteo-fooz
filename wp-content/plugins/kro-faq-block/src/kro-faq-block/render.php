@@ -4,14 +4,14 @@ if ( empty($faqs) ) return;
 ?>
 <div <?= get_block_wrapper_attributes(); ?>>
     <?php if( !empty( $attributes[ 'title' ] ) ): ?>
-        <h2><?= esc_html( $attributes[ 'title' ] ); ?></h2>
+        <h2 class="kro-faq-heading"><?= esc_html( $attributes[ 'title' ] ); ?></h2>
     <?php endif; ?>
 
-    <div class="faq-accordion">
+    <div class="kro-faq-accordion">
         <?php foreach( $faqs as $faq ): ?>
-            <details class="faq-item">
-                <summary><strong><?= esc_html( $faq[ 'question' ] ); ?></strong></summary>
-                <div class="faq-content">
+            <details class="kro-faq-item">
+                <summary class="kro-faq-item-question"><strong><?= esc_html( $faq[ 'question' ] ); ?></strong></summary>
+                <div class="kro-faq-item-answer">
                     <?= wp_kses_post( $faq[ 'answer' ] ); ?>
                 </div>
             </details>
