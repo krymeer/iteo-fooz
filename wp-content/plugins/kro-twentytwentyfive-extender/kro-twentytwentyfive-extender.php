@@ -9,7 +9,9 @@
 defined( 'ABSPATH' ) || exit;
 
 class KRO_TwentyTwentyFive_Extender {
-    const NAMESPACE  = 'kro-ttfe/v1';
+    const PLUGIN_URI            = 'kro-ttfe';
+    const PLUGIN_TEXTDOMAIN     = 'kro-ttfe';
+    const PLUGIN_API_NAMESPACE  = 'kro-ttfe/v1';
 
     public $plugin_url;
     public $plugin_dir;
@@ -43,8 +45,8 @@ class KRO_TwentyTwentyFive_Extender {
             ( object )[
                 'template_slug'        => 'single-book',
                 'template_ext'         => 'html',
-                'template_title'       => __( 'Single Book', 'kro-ttfe' ),
-                'template_description' => __( 'Template for single books', 'kro-ttfe' ),
+                'template_title'       => __( 'Single Book', PLUGIN_TEXTDOMAIN ),
+                'template_description' => __( 'Template for single books', PLUGIN_TEXTDOMAIN ),
             ]
         ];
 
@@ -56,7 +58,7 @@ class KRO_TwentyTwentyFive_Extender {
             {
                 $template_content = file_get_contents( $template_path );
 
-                register_block_template( "kro-ttfe//{$template->template_slug}", [
+                register_block_template( PLUGIN_URI . "//{$template->template_slug}", [
                     'title'       => $template->template_title,
                     'description' => $template->template_description,
                     'content'     => $template_content,
@@ -78,7 +80,7 @@ class KRO_TwentyTwentyFive_Extender {
             ( object )[
                 'pattern_slug'  => 'published-on',
                 'pattern_ext'   => 'php',
-                'pattern_title' => __( 'Published on', 'kro-ttfe' ),
+                'pattern_title' => __( 'Published on', PLUGIN_TEXTDOMAIN ),
             ]
         ];
 
@@ -91,7 +93,7 @@ class KRO_TwentyTwentyFive_Extender {
                 ob_start();
                 include $pattern_path;
                 $pattern_content = ob_get_clean();
-                register_block_pattern( "kro-ttfe/{$pattern->pattern_slug}", [
+                register_block_pattern( PLUGIN_URI . "/{$pattern->pattern_slug}", [
                         'title'   => $pattern->pattern_title,
                         'content' => $pattern_content
                     ]
@@ -105,17 +107,17 @@ class KRO_TwentyTwentyFive_Extender {
         register_taxonomy( 'book-genre', [ 'book' ], [
             'hierarchical'      => true,
             'labels'            => [
-                'name'              => _x( 'Book Genres', 'taxonomy general name', 'kro-ttfe' ),
-                'singular_name'     => _x( 'Book Genre', 'taxonomy singular name', 'kro-ttfe' ),
-                'search_items'      => __( 'Search Genres', 'kro-ttfe' ),
-                'all_items'         => __( 'All Genres', 'kro-ttfe' ),
-                'parent_item'       => __( 'Parent Genre', 'kro-ttfe' ),
-                'parent_item_colon' => __( 'Parent Genre:', 'kro-ttfe' ),
-                'edit_item'         => __( 'Edit Genre', 'kro-ttfe' ),
-                'update_item'       => __( 'Update Genre', 'kro-ttfe' ),
-                'add_new_item'      => __( 'Add New Genre', 'kro-ttfe' ),
-                'new_item_name'     => __( 'New Genre Name', 'kro-ttfe' ),
-                'menu_name'         => __( 'Genres', 'kro-ttfe' ),
+                'name'              => _x( 'Book Genres', 'taxonomy general name', PLUGIN_TEXTDOMAIN ),
+                'singular_name'     => _x( 'Book Genre', 'taxonomy singular name', PLUGIN_TEXTDOMAIN ),
+                'search_items'      => __( 'Search Genres', PLUGIN_TEXTDOMAIN ),
+                'all_items'         => __( 'All Genres', PLUGIN_TEXTDOMAIN ),
+                'parent_item'       => __( 'Parent Genre', PLUGIN_TEXTDOMAIN ),
+                'parent_item_colon' => __( 'Parent Genre:', PLUGIN_TEXTDOMAIN ),
+                'edit_item'         => __( 'Edit Genre', PLUGIN_TEXTDOMAIN ),
+                'update_item'       => __( 'Update Genre', PLUGIN_TEXTDOMAIN ),
+                'add_new_item'      => __( 'Add New Genre', PLUGIN_TEXTDOMAIN ),
+                'new_item_name'     => __( 'New Genre Name', PLUGIN_TEXTDOMAIN ),
+                'menu_name'         => __( 'Genres', PLUGIN_TEXTDOMAIN ),
             ],
             'show_ui'           => true,
             'show_admin_column' => true,
@@ -149,30 +151,30 @@ class KRO_TwentyTwentyFive_Extender {
                 'comments'
             ],
             'labels'          => [
-                'name'                  => _x( 'Books', 'Post type general name', 'kro-ttfe' ),
-                'singular_name'         => _x( 'Book', 'Post type singular name', 'kro-ttfe' ),
-                'menu_name'             => _x( 'Books', 'Admin Menu text', 'kro-ttfe' ),
-                'name_admin_bar'        => _x( 'Book', 'Add New on Toolbar', 'kro-ttfe' ),
-                'add_new'               => __( 'Add New', 'kro-ttfe' ),
-                'add_new_item'          => __( 'Add New Book', 'kro-ttfe' ),
-                'new_item'              => __( 'New Book', 'kro-ttfe' ),
-                'edit_item'             => __( 'Edit Book', 'kro-ttfe' ),
-                'view_item'             => __( 'View Book', 'kro-ttfe' ),
-                'all_items'             => __( 'All Books', 'kro-ttfe' ),
-                'search_items'          => __( 'Search Books', 'kro-ttfe' ),
-                'parent_item_colon'     => __( 'Parent Books:', 'kro-ttfe' ),
-                'not_found'             => __( 'No books found.', 'kro-ttfe' ),
-                'not_found_in_trash'    => __( 'No books found in Trash.', 'kro-ttfe' ),
-                'featured_image'        => _x( 'Book Cover Image', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'kro-ttfe' ),
-                'set_featured_image'    => _x( 'Set cover image', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'kro-ttfe' ),
-                'remove_featured_image' => _x( 'Remove cover image', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'kro-ttfe' ),
-                'use_featured_image'    => _x( 'Use as cover image', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'kro-ttfe' ),
-                'archives'              => _x( 'Book archives', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'kro-ttfe' ),
-                'insert_into_item'      => _x( 'Insert into book', 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', 'kro-ttfe' ),
-                'uploaded_to_this_item' => _x( 'Uploaded to this book', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', 'kro-ttfe' ),
-                'filter_items_list'     => _x( 'Filter books list', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', 'kro-ttfe' ),
-                'items_list_navigation' => _x( 'Books list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', 'kro-ttfe' ),
-                'items_list'            => _x( 'Books list', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', 'kro-ttfe' ),
+                'name'                  => _x( 'Books', 'Post type general name', PLUGIN_TEXTDOMAIN ),
+                'singular_name'         => _x( 'Book', 'Post type singular name', PLUGIN_TEXTDOMAIN ),
+                'menu_name'             => _x( 'Books', 'Admin Menu text', PLUGIN_TEXTDOMAIN ),
+                'name_admin_bar'        => _x( 'Book', 'Add New on Toolbar', PLUGIN_TEXTDOMAIN ),
+                'add_new'               => __( 'Add New', PLUGIN_TEXTDOMAIN ),
+                'add_new_item'          => __( 'Add New Book', PLUGIN_TEXTDOMAIN ),
+                'new_item'              => __( 'New Book', PLUGIN_TEXTDOMAIN ),
+                'edit_item'             => __( 'Edit Book', PLUGIN_TEXTDOMAIN ),
+                'view_item'             => __( 'View Book', PLUGIN_TEXTDOMAIN ),
+                'all_items'             => __( 'All Books', PLUGIN_TEXTDOMAIN ),
+                'search_items'          => __( 'Search Books', PLUGIN_TEXTDOMAIN ),
+                'parent_item_colon'     => __( 'Parent Books:', PLUGIN_TEXTDOMAIN ),
+                'not_found'             => __( 'No books found.', PLUGIN_TEXTDOMAIN ),
+                'not_found_in_trash'    => __( 'No books found in Trash.', PLUGIN_TEXTDOMAIN ),
+                'featured_image'        => _x( 'Book Cover Image', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', PLUGIN_TEXTDOMAIN ),
+                'set_featured_image'    => _x( 'Set cover image', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', PLUGIN_TEXTDOMAIN ),
+                'remove_featured_image' => _x( 'Remove cover image', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', PLUGIN_TEXTDOMAIN ),
+                'use_featured_image'    => _x( 'Use as cover image', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', PLUGIN_TEXTDOMAIN ),
+                'archives'              => _x( 'Book archives', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', PLUGIN_TEXTDOMAIN ),
+                'insert_into_item'      => _x( 'Insert into book', 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', PLUGIN_TEXTDOMAIN ),
+                'uploaded_to_this_item' => _x( 'Uploaded to this book', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', PLUGIN_TEXTDOMAIN ),
+                'filter_items_list'     => _x( 'Filter books list', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', PLUGIN_TEXTDOMAIN ),
+                'items_list_navigation' => _x( 'Books list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', PLUGIN_TEXTDOMAIN ),
+                'items_list'            => _x( 'Books list', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', PLUGIN_TEXTDOMAIN ),
             ]
         ] );
     }
