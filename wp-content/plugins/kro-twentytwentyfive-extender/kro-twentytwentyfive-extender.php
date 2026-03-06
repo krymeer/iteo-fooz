@@ -27,6 +27,7 @@ class KRO_TwentyTwentyFive_Extender {
         add_action( 'init', [ $this, 'register_block_pattern' ] );
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ] );
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+        add_action( 'pre_get_posts', [ $this, 'limit_books_per_page' ] );
     }
 
     public function enqueue_styles() : void
@@ -57,14 +58,29 @@ class KRO_TwentyTwentyFive_Extender {
         return '';
     }
 
+    public function limit_books_per_page( WP_Query $query ) : void
+    {
+        if( !is_admin() && $query->is_main_query() )
+        {
+            $query->set( 'posts_per_page', 5 );
+        }
+    }
+
     public function register_block_template() : void
     {
         $templates = [
             ( object )[
                 'template_slug'        => 'single-book',
+                'template_args'        => [ 'post_types'  => [ 'book' ] ],
                 'template_ext'         => 'html',
                 'template_title'       => __( 'Single Book', self::PLUGIN_TEXTDOMAIN ),
                 'template_description' => __( 'Template for single books', self::PLUGIN_TEXTDOMAIN ),
+            ],
+            ( object )[
+                'template_slug'        => 'taxonomy-book-genre',
+                'template_ext'         => 'php',
+                'template_title'       => __( 'Book Genre', self::PLUGIN_TEXTDOMAIN ),
+                'template_description' => __( 'Template for a book genre', self::PLUGIN_TEXTDOMAIN ),
             ]
         ];
 
@@ -74,13 +90,19 @@ class KRO_TwentyTwentyFive_Extender {
 
             if( $template_content )
             {
-                register_block_template( self::PLUGIN_URI . "//{$template->template_slug}", [
+                $template_args = [
                     'title'       => $template->template_title,
                     'description' => $template->template_description,
                     'content'     => $template_content,
-                    'post_types'  => [ 'book' ],
                     'plugin'      => 'kro-twentytwentyfive-extender',
-                ] );
+                ];
+
+                if( isset( $template->template_args ) )
+                {
+                    $template_args = $template->template_args + $template_args;
+                }
+
+                register_block_template( self::PLUGIN_URI . "//{$template->template_slug}", $template_args );
             }
         }
     }
@@ -92,6 +114,11 @@ class KRO_TwentyTwentyFive_Extender {
                 'pattern_slug'  => 'latest-books',
                 'pattern_ext'   => 'php',
                 'pattern_title' => __( 'Latest Books', self::PLUGIN_TEXTDOMAIN ),
+            ],
+            ( object )[
+                'pattern_slug'  => 'book-genre-heading',
+                'pattern_ext'   => 'php',
+                'pattern_title' => __( 'Book Genre Heading', self::PLUGIN_TEXTDOMAIN ),
             ],
             ( object )[
                 'pattern_slug'  => 'written-by',
