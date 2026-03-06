@@ -17,6 +17,8 @@ class KRO_TwentyTwentyFive_Extender {
         $this->plugin_url = plugin_dir_url( __FILE__ );
         add_action( 'init', [ $this, 'register_post_type' ] );
         add_action( 'init', [ $this, 'register_taxonomy' ] );
+        add_action( 'init', [ $this, 'register_block_template' ] );
+        add_action( 'init', [ $this, 'register_block_pattern' ] );
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ] );
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
     }
