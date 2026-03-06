@@ -14,39 +14,6 @@
 .kro-faq-accordion {
   counter-reset: faq-counter;
 }
-.kro-faq-editor-wrapper {
-  padding: calc(var(--wp--preset--spacing--20));
-}
-.kro-faq-editor-wrapper h2 {
-  margin-top: var(--wp--preset--spacing--20);
-  margin-bottom: var(--wp--preset--spacing--30);
-  padding-right: calc(var(--wp--preset--spacing--30) * 0.75);
-  padding-left: calc(var(--wp--preset--spacing--30) * 0.75);
-}
-.kro-faq-editor-wrapper button.is-destructive {
-  position: absolute;
-  top: calc(0.5 * var(--wp--preset--spacing--20));
-  left: calc(0.5 * var(--wp--preset--spacing--20));
-  color: var(--fooz-accent-color);
-}
-.kro-faq-editor-wrapper button.is-primary {
-  margin-top: var(--wp--preset--spacing--20);
-}
-.kro-faq-editor-item {
-  padding: calc(var(--wp--preset--spacing--30) * 0.75);
-  border: 1px solid var(--fooz-accent-color);
-  position: relative;
-  margin-bottom: var(--wp--preset--spacing--20);
-  border-radius: calc(var(--wp--preset--spacing--30) / 5);
-  background-color: var(--fooz-accent-bg-color);
-}
-.kro-faq-editor-item .components-base-control__label {
-  color: var(--fooz-accent-color);
-}
-.kro-faq-editor-item .components-textarea-control__input,
-.kro-faq-editor-item .components-text-control__input {
-  border-color: var(--fooz-accent-color);
-}
 .kro-faq-heading {
   line-height: 1.25;
   margin-top: 0;

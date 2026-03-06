@@ -15,50 +15,6 @@
 		counter-reset: faq-counter;
 	}
 
-	&-editor {
-		&-wrapper {
-			padding: calc(var(--wp--preset--spacing--20));
-
-			h2 {
-				margin-top: var(--wp--preset--spacing--20);
-				margin-bottom: var(--wp--preset--spacing--30);
-				padding-left: calc(var(--wp--preset--spacing--30) * .75);
-				padding-right: calc(var(--wp--preset--spacing--30) * .75);
-			}
-
-			button {
-				&.is-destructive {
-					position: absolute;
-					top: calc(.5 * var(--wp--preset--spacing--20));
-					right: calc(.5 * var(--wp--preset--spacing--20));
-					color: var(--fooz-accent-color);
-				}
-
-				&.is-primary {
-					margin-top: var(--wp--preset--spacing--20);
-				}
-			}
-		}
-
-		&-item {
-			padding: calc(var(--wp--preset--spacing--30) * .75);
-			border: 1px solid var(--fooz-accent-color);
-			position: relative;
-			margin-bottom: var(--wp--preset--spacing--20);
-			border-radius: calc(var(--wp--preset--spacing--30) / 5);
-			background-color: var(--fooz-accent-bg-color);
-
-			.components-base-control__label {
-				color: var(--fooz-accent-color);
-			}
-
-			.components-textarea-control__input,
-			.components-text-control__input {
-				border-color: var(--fooz-accent-color);
-			}
-		}
-	}
-
 	&-heading {
 		line-height: 1.25;
 		margin-top: 0;
