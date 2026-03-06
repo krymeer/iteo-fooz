@@ -39,6 +39,18 @@ class KRO_TwentyTwentyFive_Extender {
         wp_enqueue_script( 'kro-ttfe-additional', self::$plugin_url . 'assets/js/scripts.js', [ 'kro-ttfe' ], 1772713773, [ 'in_footer' => true ] );
     }
 
+    public function get_file_content( string $filename ) : string
+    {
+        if( file_exists( $filename ) )
+        {
+            ob_start();
+            include $filename;
+            return ob_get_clean();
+        }
+
+        return '';
+    }
+
     public function register_block_template() : void
     {
         $templates = [
@@ -52,12 +64,10 @@ class KRO_TwentyTwentyFive_Extender {
 
         foreach( $templates as $template )
         {
-            $template_path = self::$plugin_dir . "templates/{$template->template_slug}.{$template->template_ext}";
+            $template_content = $this->get_file_content( self::$plugin_dir . "templates/{$template->template_slug}.{$template->template_ext}" );
 
-            if( file_exists( $template_path ) )
+            if( $template_content )
             {
-                $template_content = file_get_contents( $template_path );
-
                 register_block_template( self::PLUGIN_URI . "//{$template->template_slug}", [
                     'title'       => $template->template_title,
                     'description' => $template->template_description,
@@ -86,13 +96,10 @@ class KRO_TwentyTwentyFive_Extender {
 
         foreach( $patterns as $pattern )
         {
-            $pattern_path = self::$plugin_dir . "patterns/{$pattern->pattern_slug}.{$pattern->pattern_ext}";
+            $pattern_content = $this->get_file_content( self::$plugin_dir . "patterns/{$pattern->pattern_slug}.{$pattern->pattern_ext}" );
 
-            if( file_exists( $pattern_path ) )
+            if( $pattern_content )
             {
-                ob_start();
-                include $pattern_path;
-                $pattern_content = ob_get_clean();
                 register_block_pattern( self::PLUGIN_URI . "/{$pattern->pattern_slug}", [
                         'title'   => $pattern->pattern_title,
                         'content' => $pattern_content
