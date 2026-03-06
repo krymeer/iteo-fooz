@@ -20,6 +20,7 @@ class KRO_TwentyTwentyFive_Extender {
     {
         self::$plugin_url = plugin_dir_url( __FILE__ );
         self::$plugin_dir = plugin_dir_path( __FILE__ );
+
         add_action( 'init', [ $this, 'register_post_type' ] );
         add_action( 'init', [ $this, 'register_taxonomy' ] );
         add_action( 'init', [ $this, 'register_block_template' ] );
@@ -35,8 +36,13 @@ class KRO_TwentyTwentyFive_Extender {
 
     public function enqueue_scripts() : void
     {
-        wp_enqueue_script( 'kro-ttfe', self::$plugin_url . 'assets/js/kro-ttfe.min.js', [], 1772712462, [ 'in_footer' => true ] );
+        wp_enqueue_script( 'kro-ttfe', self::$plugin_url . 'assets/js/kro-ttfe.min.js', [], 1772798087, [ 'in_footer' => true ] );
         wp_enqueue_script( 'kro-ttfe-additional', self::$plugin_url . 'assets/js/scripts.js', [ 'kro-ttfe' ], 1772713773, [ 'in_footer' => true ] );
+
+        wp_localize_script( 'kro-ttfe', 'kroTtfe', [
+            'apiUrl'    => get_rest_url() . 'wp/v2',
+            'currentId' => get_the_ID()
+        ] );
     }
 
     public function get_file_content( string $filename ) : string
@@ -82,6 +88,11 @@ class KRO_TwentyTwentyFive_Extender {
     public function register_block_pattern() : void
     {
         $patterns = [
+            ( object )[
+                'pattern_slug'  => 'latest-books',
+                'pattern_ext'   => 'php',
+                'pattern_title' => __( 'Latest Books', self::PLUGIN_TEXTDOMAIN ),
+            ],
             ( object )[
                 'pattern_slug'  => 'written-by',
                 'pattern_ext'   => 'php',
