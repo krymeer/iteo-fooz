@@ -32,6 +32,36 @@ class KRO_TwentyTwentyFive_Extender {
         wp_enqueue_script( 'kro-ttfe-additional', "{$this->plugin_url}assets/js/scripts.js", [ 'kro-ttfe' ], 1772713773, [ 'in_footer' => true ] );
     }
 
+    public function register_block_template() : void
+    {
+        $templates = [
+            ( object )[
+                'template_slug'        => 'single-book',
+                'template_ext'         => 'html',
+                'template_title'       => __( 'Single Book', 'kro-ttfe' ),
+                'template_description' => __( 'Template for single books', 'kro-ttfe' ),
+            ]
+        ];
+
+        foreach( $templates as $template )
+        {
+            $template_path = "{$this->plugin_dir}templates/{$template->template_slug}.{$template->template_ext}";
+
+            if( file_exists( $template_path ) )
+            {
+                $template_content = file_get_contents( $template_path );
+
+                register_block_template( "kro-ttfe//{$template->template_slug}", [
+                    'title'       => $template->template_title,
+                    'description' => $template->template_description,
+                    'content'     => $template_content,
+                    'post_types'  => [ 'book' ],
+                    'plugin'      => 'kro-twentytwentyfive-extender',
+                ] );
+            }
+        }
+    }
+
     public function register_block_pattern() : void
     {
         $patterns = [
