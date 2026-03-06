@@ -32,6 +32,39 @@ class KRO_TwentyTwentyFive_Extender {
         wp_enqueue_script( 'kro-ttfe-additional', "{$this->plugin_url}assets/js/scripts.js", [ 'kro-ttfe' ], 1772713773, [ 'in_footer' => true ] );
     }
 
+    public function register_block_pattern() : void
+    {
+        $patterns = [
+            ( object )[
+                'pattern_slug'  => 'written-by',
+                'pattern_ext'   => 'php',
+                'pattern_title' => __( 'Written by', 'twentytwentyfive' ),
+            ],
+            ( object )[
+                'pattern_slug'  => 'published-on',
+                'pattern_ext'   => 'php',
+                'pattern_title' => __( 'Published on', 'kro-ttfe' ),
+            ]
+        ];
+
+        foreach( $patterns as $pattern )
+        {
+            $pattern_path = "{$this->plugin_dir}patterns/{$pattern->pattern_slug}.{$pattern->pattern_ext}";
+
+            if( file_exists( $pattern_path ) )
+            {
+                ob_start();
+                include $pattern_path;
+                $pattern_content = ob_get_clean();
+                register_block_pattern( "kro-ttfe/{$pattern->pattern_slug}", [
+                        'title'   => $pattern->pattern_title,
+                        'content' => $pattern_content
+                    ]
+                );
+            }
+        }
+    }
+
     public function register_taxonomy() : void
     {
         register_taxonomy( 'book-genre', [ 'book' ], [
