@@ -10,11 +10,14 @@ defined( 'ABSPATH' ) || exit;
 
 class KRO_TwentyTwentyFive_Extender {
     const NAMESPACE  = 'kro-ttfe/v1';
-    public static $plugin_url;
+
+    public $plugin_url;
+    public $plugin_dir;
 
     public function __construct()
     {
         $this->plugin_url = plugin_dir_url( __FILE__ );
+        $this->plugin_dir = plugin_dir_path( __FILE__ );
         add_action( 'init', [ $this, 'register_post_type' ] );
         add_action( 'init', [ $this, 'register_taxonomy' ] );
         add_action( 'init', [ $this, 'register_block_template' ] );
