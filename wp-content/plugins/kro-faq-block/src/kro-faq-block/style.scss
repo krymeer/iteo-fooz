@@ -1,0 +1,36 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.kro-faq-editor {
+	&-wrapper {
+		padding: calc(var(--wp--preset--spacing--20) / 5);
+
+		h2 {
+			margin-bottom: var(--wp--preset--spacing--30);
+		}
+
+		button {
+			&.is-destructive {
+				position: absolute;
+				top: calc(.5 * var(--wp--preset--spacing--20));
+				right: calc(.5 * var(--wp--preset--spacing--20));
+			}
+
+			&.is-primary {
+				margin-top: var(--wp--preset--spacing--20);
+			}
+		}
+	}
+
+	&-item {
+		padding: 16px;
+		border: 1px solid #ddd;
+		margin-bottom: var(--wp--preset--spacing--20);
+		position: relative;
+		border-radius: 4px;
+	}
+}

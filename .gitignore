@@ -19,6 +19,7 @@
 
 # Exception for your plugin
 !/wp-content/plugins/kro-twentytwentyfive-extender/
+!/wp-content/plugins/kro-faq-block/
 
 # Standard OS/IDE trash and logs
 Thumbs.db

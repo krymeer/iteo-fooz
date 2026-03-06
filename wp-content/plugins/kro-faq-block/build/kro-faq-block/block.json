@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "create-block/kro-faq-block",
+  "version": "1.0.0",
+  "title": "KRO FAQ Block",
+  "category": "widgets",
+  "icon": "editor-help",
+  "description": "Example FAQ scaffolded with Create Block tool.",
+  "example": {},
+  "supports": {
+    "html": false
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Frequently Asked Questions"
+    },
+    "faqs": {
+      "type": "array",
+      "default": [
+        {
+          "question": "",
+          "answer": ""
+        }
+      ]
+    }
+  },
+  "textdomain": "kro-faq-block",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php",
+  "viewScript": "file:./view.js"
+}
