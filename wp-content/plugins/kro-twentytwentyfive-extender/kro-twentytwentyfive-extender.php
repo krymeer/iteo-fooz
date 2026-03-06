@@ -30,7 +30,7 @@ class KRO_TwentyTwentyFive_Extender {
 
     public function enqueue_styles() : void
     {
-        wp_enqueue_style( 'kro-ttfe', self::$plugin_url . 'assets/css/kro-ttfe.min.css', [], 1772712462, 'screen' );
+        wp_enqueue_style( 'kro-ttfe', self::$plugin_url . 'assets/css/kro-ttfe.min.css', [], 1772792893, 'screen' );
     }
 
     public function enqueue_scripts() : void
